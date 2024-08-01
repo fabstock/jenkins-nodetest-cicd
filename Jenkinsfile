@@ -16,14 +16,16 @@ pipeline {
     stages {
 
 
-        stage('clean'){
+        stage('Clean'){
         steps { 
+             echo '\033[34mClean\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
              sh 'npm cache clean --force'
             }
         }
 
-        stage('build') {
+        stage('Build') {
             steps {
+                echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'node --version'
                 
                 sh 'npm  install jest --loglevel=verbose'
@@ -32,6 +34,7 @@ pipeline {
 
         stage('Test') {
            steps {
+               echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                echo 'Testing..'
               //sh 'npm test'
             }
@@ -44,6 +47,7 @@ pipeline {
             }
            
             steps {
+                echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 echo 'Success'
                 echo 'Deploying....'
             }
