@@ -3,9 +3,17 @@ pipeline {
     agent { docker { image 'node:20.16.0-alpine3.20' } }
     stages {
 
+
+        stage('clean'){
+        steps { 
+             sh 'npm cache clean --force'
+            }
+        }
+
         stage('build') {
             steps {
                 sh 'node --version'
+                
                 sh 'npm  install jest'
             }
         }
