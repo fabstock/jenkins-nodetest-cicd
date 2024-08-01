@@ -1,6 +1,5 @@
 /* Requires the Docker Pipeline plugin */
-pipeline {
-    node {
+node {
     // This displays colors using the 'xterm' ansi color map.
     ansiColor('xterm') {
         // Just some echoes to show the ANSI color.
@@ -8,6 +7,7 @@ pipeline {
     }
 }
 
+pipeline {
     agent { 
            docker { 
                   image 'node:20.16.0-alpine3.20'
