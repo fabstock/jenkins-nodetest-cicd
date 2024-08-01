@@ -1,6 +1,12 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'node:20.16.0-alpine3.20' } }
+    agent { 
+           docker { 
+                  image 'node:20.16.0-alpine3.20'
+                  inside '--user=root'
+                  }
+             
+          }
     stages {
 
 
