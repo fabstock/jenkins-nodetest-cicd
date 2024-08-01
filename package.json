@@ -4,13 +4,42 @@
 
 
   "dependencies": {
+
+
+
+
     "npm-groovy-lint": "^14.6.0"
+
+
+
+
   },
 
+
+
+
   "main": "sum.js",
+
+
+
+
   "scripts": {
+
+
+
+
     "test": "jest"
+
+
+
+
   }
 
 
+
+
 }
+
+
+
+
