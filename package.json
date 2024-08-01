@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "npm-groovy-lint": "^14.6.0"
+  },
+
+  "scripts": {
+    "test": "jest --passWithNoTests`"
   }
+
+
 }
