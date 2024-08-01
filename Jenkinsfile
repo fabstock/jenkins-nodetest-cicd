@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh 'node --version'
                 
-                sh 'npm  install jest'
+                sh 'npm  install jest --loglevel=verbose'
             }
         }
 
