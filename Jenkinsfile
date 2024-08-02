@@ -1,3 +1,7 @@
+//import groovy.transform.CompileStatic
+//@GrailsCompileStatic, @CompileStatic or @CompileDynamic  CompileStatic
+//@CompileStatic
+
 /* Requires the Docker Pipeline plugin */
 
 pipeline {
@@ -6,16 +10,10 @@ pipeline {
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
         }
-        options {
-        //environment {
-        //    PATH = "./node_modules/.bin/:${env.PATH}"
-        //}
-        }
     }
 
-    ansiColor('xterm') {
-            echo "TERM=${env.TERM}"
-    //stage '\u001B[31m"STAGE"\u001B[0m Now'
+    options {
+        ansiColor('xterm')
     }
 
     stages {
@@ -40,11 +38,12 @@ pipeline {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
-                export PATH = "~/.bin/:node_modules/.bin/:$PATH"
+                sh 'export PATH = "~/.bin:node_modules/.bin:$PATH"'
                 echo "PATH: $PATH"
                 echo "PWD: $PWD"
                 sh 'ls -latr'
                 sh 'ls -latr ./node_modules/.bin'
+                //sh './node_modules/.bin/npm-groovy-lint --verbose 1 --format --parse  Jenkinsfile'
                 sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
             }
         }
@@ -53,9 +52,9 @@ pipeline {
             steps {
                 echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 echo 'Testing..'
-                export PATH = "~/.bin/:node_modules/.bin/:$PATH"
+                sh 'export PATH = "~/.bin/:node_modules/.bin/:$PATH"'
                 echo "PATH: $PATH"
-                sh 'ls -latr ./node_modules/.bin'
+                sh 'ls -ltr ./node_modules/.bin'
                 sh 'npm test'
                 sh 'node /home/fab/LAMANU/TESTs/node_modules/jest/bin/jest.js'
             //sh '~/.bin/jest  test.sum.js'
