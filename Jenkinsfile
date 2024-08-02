@@ -29,6 +29,7 @@ pipeline {
                 sh 'node --version'
                 sh 'npm  install jest --loglevel=verbose'
                 sh 'npm  install npm-groovy-lint --loglevel=verbose'
+                sh 'apk add openjdk17-jre'
             }
         }
 
