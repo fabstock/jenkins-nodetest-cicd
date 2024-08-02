@@ -37,10 +37,11 @@ pipeline {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
-                //export PATH="~/.bin/:node_modules/.bin/:$PATH"
+                export PATH = "~/.bin/:node_modules/.bin/:$PATH"
                 echo "PATH: $PATH"
                 echo "PWD: $PWD"
                 sh 'ls -latr'
+                sh 'ls -latr ./node_modules/.bin'
                 sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
             }
         }
@@ -49,10 +50,12 @@ pipeline {
             steps {
                 echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 echo 'Testing..'
+                export PATH = "~/.bin/:node_modules/.bin/:$PATH"
                 echo "PATH: $PATH"
-                //export PATH="~/.bin/:node_modules/.bin/:$PATH"
-                //sh 'npm test'
-                sh './node_modules/.bin/jest  test.sum.js'
+                sh 'ls -latr ./node_modules/.bin'
+                sh 'npm test'
+                sh 'node /home/fab/LAMANU/TESTs/node_modules/jest/bin/jest.js'
+                #sh '~/.bin/jest  test.sum.js'
             //sh 'jest'
             }
         }
