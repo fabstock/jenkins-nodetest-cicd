@@ -34,13 +34,13 @@ pipeline {
         }
 
         
-        stage('Groovy Jenkinsfile'){
+        stage('Groovy-lint Jenkinsfile'){
              steps{
 		echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
-                export PATH="~/.bin/:$PATH"
-                echo "PATH: $PATH"
-                echo "PWD: $PWD"
+                export PATH="~/.bin/:node_modules/.bin/~/:$PATH"
+                echo 'PATH: $PATH'
+                echo 'PWD: $PWD'
                 sh 'ls -latr'
                 sh './node_modules/.bin/npm-groovy-lint  Jenkinsfile'
  
@@ -48,7 +48,7 @@ pipeline {
         }
 
 
-        stage('Test') {
+        stage('Tests') {
            steps {
                echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                echo 'Testing..'
