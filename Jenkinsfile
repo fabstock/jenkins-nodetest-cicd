@@ -49,6 +49,8 @@ pipeline {
                 //sh 'npm  install npm-groovy-lint --loglevel=verbose'
                 sh 'npm  install npm-groovy-lint'
                 sh 'apk add openjdk17-jre'
+                sh './install-groovy.sh'
+
             }
         }
 

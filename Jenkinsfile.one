@@ -1,3 +1,7 @@
+//import groovy.transform.CompileStatic
+//@GrailsCompileStatic, @CompileStatic or @CompileDynamic  CompileStatic
+//@CompileStatic
+
 /* Requires the Docker Pipeline plugin */
 
 pipeline {
@@ -6,20 +10,29 @@ pipeline {
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
         }
-
-    //environment {
-    //    PATH = "./node_modules/.bin/:${env.PATH}"
-    //}
     }
 
     options {
         ansiColor('xterm')
-    //{
-    //stage '\u001B[31m"STAGE"\u001B[0m Now'
-    //}
     }
 
     stages {
+        stage('demo') {
+            steps {
+                // Using xterm 
+                ansiColor('xterm') {
+                    echo "\033[31;1m Executing demo stage: \033[0m"
+                }
+
+                // Using vga
+                ansiColor('vga') {
+                    echo "\033[31;1m command-1 \033[0m"
+                }
+
+                echo "\033[31;1m command-2 \033[0m"
+            }
+        }
+
         stage('Clean') {
             steps {
                 echo '\033[34mClean\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
@@ -31,8 +44,10 @@ pipeline {
             steps {
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'node --version'
-                sh 'npm  install jest --loglevel=verbose'
-                sh 'npm  install npm-groovy-lint --loglevel=verbose'
+                //sh 'npm  install jest --loglevel=verbose'
+                sh 'npm  install jest'
+                //sh 'npm  install npm-groovy-lint --loglevel=verbose'
+                sh 'npm  install npm-groovy-lint'
                 sh 'apk add openjdk17-jre'
             }
         }
@@ -41,11 +56,13 @@ pipeline {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
-                export PATH = "~/.bin/:node_modules/.bin/:$PATH"
+                sh 'export PATH="/bin:./node_modules/.bin:$PATH"'
+
                 echo "PATH: $PATH"
                 echo "PWD: $PWD"
                 sh 'ls -latr'
                 sh 'ls -latr ./node_modules/.bin'
+                //sh './node_modules/.bin/npm-groovy-lint --verbose 1 --format --parse  Jenkinsfile'
                 sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
             }
         }
@@ -54,19 +71,19 @@ pipeline {
             steps {
                 echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 echo 'Testing..'
-                export PATH = "~/.bin/:node_modules/.bin/:$PATH"
+                sh 'export PATH="/bin/:./node_modules/.bin/:$PATH"'
                 echo "PATH: $PATH"
-                sh 'ls -latr ./node_modules/.bin'
-                sh 'npm test'
-                sh 'node /home/fab/LAMANU/TESTs/node_modules/jest/bin/jest.js'
-            //sh '~/.bin/jest  test.sum.js'
-            //sh 'jest'
+                sh 'ls -ltr ./node_modules/.bin'
+                //sh 'npm test'
+                sh 'node ./node_modules/jest/bin/jest.js'
+               //sh '~/.bin/jest  test.sum.js'
+               //sh 'jest'
             }
         }
 
         stage('Deploy') {
             agent {
-                label 'agent1_jenkins' // Nom de l'agent SSH configuré dans Jenkins
+                label 'Noeud-vm-lxc-other' // Nom de l'agent SSH configuré dans Jenkins
             }
             when {
                 expression {
@@ -76,13 +93,15 @@ pipeline {
             steps {
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
 
-                /* sshagent(['ssh-credentials-id']) {
+                /*
+                sshagent(['ssh-credentials-id']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no agent1_jenkins@remote-server 'mkdir -p ~/deploy'
                     scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
                     ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 'echo  1 >file'
                     '''
-                }*/
+                }
+                */
 
                 echo 'Success'
                 echo 'Deploying....'
