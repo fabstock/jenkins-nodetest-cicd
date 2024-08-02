@@ -55,7 +55,7 @@ pipeline {
                 sh 'ls -latr ./node_modules/.bin'
                 sh 'npm test'
                 sh 'node /home/fab/LAMANU/TESTs/node_modules/jest/bin/jest.js'
-                #sh '~/.bin/jest  test.sum.js'
+            //sh '~/.bin/jest  test.sum.js'
             //sh 'jest'
             }
         }
