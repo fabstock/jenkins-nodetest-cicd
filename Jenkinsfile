@@ -33,15 +33,15 @@ pipeline {
             steps {
                 // Using xterm 
                 ansiColor('xterm') {
-                    echo "\033[31;1m Executing demo stage: \033[0m"
+                    echo '\033[31;1m Executing demo stage: \033[0m'
                 }
 
                 // Using vga
                 ansiColor('vga') {
-                    echo "\033[31;1m command-1 \033[0m"
+                    echo '\033[31;1m command-1 \033[0m'
                 }
 
-                echo "\033[31;1m command-2 \033[0m"
+                echo '\033[31;1m command-2 \033[0m'
             }
         }
 
