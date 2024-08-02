@@ -67,7 +67,7 @@ pipeline {
 
         stage('Deploy') {
             agent {
-                label 'agent1_jenkins' // Nom de l'agent SSH configuré dans Jenkins
+                label 'Noeud-vm-lxc-other' // Nom de l'agent SSH configuré dans Jenkins
             }
             when {
                 expression {
