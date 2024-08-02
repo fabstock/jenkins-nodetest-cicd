@@ -6,17 +6,16 @@ pipeline {
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
         }
-
-    //environment {
-    //    PATH = "./node_modules/.bin/:${env.PATH}"
-    //}
+        options {
+        //environment {
+        //    PATH = "./node_modules/.bin/:${env.PATH}"
+        //}
+        }
     }
 
-    options {
-        ansiColor('xterm') {
+    ansiColor('xterm') {
             echo "TERM=${env.TERM}"
-        //stage '\u001B[31m"STAGE"\u001B[0m Now'
-        }
+    //stage '\u001B[31m"STAGE"\u001B[0m Now'
     }
 
     stages {
