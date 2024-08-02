@@ -14,7 +14,7 @@ pipeline {
         }
     }
     environment {
-       JAVA_HOME=$PWD
+       JAVA_HOME="$PWD"
     }
     options {
         ansiColor('xterm')
