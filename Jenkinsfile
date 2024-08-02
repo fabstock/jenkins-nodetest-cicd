@@ -14,8 +14,8 @@ pipeline {
 
     options {
         ansiColor('xterm') {
-            stage '\u001B[31m"STAGE"\u001B[0m Now'
         }
+    //stage '\u001B[31m"STAGE"\u001B[0m Now'
     }
 
     stages {
