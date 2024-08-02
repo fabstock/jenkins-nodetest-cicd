@@ -3,13 +3,13 @@
 pipeline {
     agent {
         docker {
-             image 'node:20.16.0-alpine3.20'
-             args '--user=root -m 512m --cpus=1.5'
-             environment {
-               PATH = "./node_modules/.bin/:${env.PATH}"
-             }
+            image 'node:20.16.0-alpine3.20'
+            args '--user=root -m 512m --cpus=1.5'
           }
+        environment {
+            PATH = "./node_modules/.bin/:${env.PATH}"
         }
+    }
 
     options {
         ansiColor('xterm')
@@ -31,7 +31,7 @@ pipeline {
                 sh 'npm  install npm-groovy-lint --loglevel=verbose'
             }
         }
-        
+
         stage('Groovy-lint Jenkinsfile') {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
@@ -55,6 +55,7 @@ pipeline {
                 //sh 'jest'
             }
         }
+
         stage('Deploy') {
             when {
                 expression {
