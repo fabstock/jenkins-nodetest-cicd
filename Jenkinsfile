@@ -8,7 +8,7 @@ pipeline {
     agent {
         
         docker {
-            label 'docker-node-alpine' 
+            label 'noeud1' 
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
         }
