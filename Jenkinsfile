@@ -40,7 +40,8 @@ pipeline {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
-                sh 'export PATH = "~/.bin:node_modules/.bin:$PATH"'
+                sh 'export PATH="/bin:./node_modules/.bin:$PATH"'
+
                 echo "PATH: $PATH"
                 echo "PWD: $PWD"
                 sh 'ls -latr'
@@ -54,7 +55,7 @@ pipeline {
             steps {
                 echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 echo 'Testing..'
-                sh 'export PATH = "~/.bin/:node_modules/.bin/:$PATH"'
+                sh 'export PATH="/bin/:./node_modules/.bin/:$PATH"'
                 echo "PATH: $PATH"
                 sh 'ls -ltr ./node_modules/.bin'
                 //sh 'npm test'
