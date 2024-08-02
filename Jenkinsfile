@@ -14,7 +14,7 @@ pipeline {
         }
     }
     environment {
-       JAVA_HOME="/usr/bin/java"
+       JAVA_HOME="/usr"
     }
     options {
         ansiColor('xterm')
