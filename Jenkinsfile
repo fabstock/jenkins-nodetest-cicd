@@ -23,7 +23,7 @@ pipeline {
             steps {
                 checkout scm
             }
-
+        }  
         stage('demo') {
             steps {
                 // Using xterm 
