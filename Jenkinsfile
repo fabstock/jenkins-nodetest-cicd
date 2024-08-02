@@ -6,14 +6,16 @@ pipeline {
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
         }
-        
+
     //environment {
     //    PATH = "./node_modules/.bin/:${env.PATH}"
     //}
     }
 
     options {
-        ansiColor('xterm')
+        ansiColor('xterm') {
+            stage '\u001B[31m"STAGE"\u001B[0m Now'
+        }
     }
 
     stages {
@@ -56,8 +58,8 @@ pipeline {
                 sh 'ls -latr ./node_modules/.bin'
                 sh 'npm test'
                 sh 'node /home/fab/LAMANU/TESTs/node_modules/jest/bin/jest.js'
-                //sh '~/.bin/jest  test.sum.js'
-                //sh 'jest'
+            //sh '~/.bin/jest  test.sum.js'
+            //sh 'jest'
             }
         }
 
@@ -74,11 +76,11 @@ pipeline {
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
 
                 sshagent(['ssh-credentials-id']) {
-                    sh """
+                    sh '''
                     ssh -o StrictHostKeyChecking=no agent1_jenkins@remote-server 'mkdir -p ~/deploy'
                     scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
                     ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 'echo  1 >file'
-                    """
+                    '''
                 }
 
                 echo 'Success'
