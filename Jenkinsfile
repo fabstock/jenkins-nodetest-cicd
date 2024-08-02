@@ -41,7 +41,7 @@ pipeline {
                 export PATH="~/.bin/:$PATH"
                 echo "PATH: $PATH"
                 echo "PWD: $PWD"
-                ls -latr
+                sh 'ls -latr'
                 sh './node_modules/.bin/npm-groovy-lint  Jenkinsfile'
  
 	}
