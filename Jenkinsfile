@@ -17,6 +17,22 @@ pipeline {
     }
 
     stages {
+        stage('demo') {
+            steps {
+                // Using xterm 
+                ansiColor('xterm') {
+                    echo "\033[31;1m Executing demo stage: \033[0m"
+                }
+
+                // Using vga
+                ansiColor('vga') {
+                    echo "\033[31;1m command-1 \033[0m"
+                }
+
+                echo "\033[31;1m command-2 \033[0m"
+            }
+        }
+
         stage('Clean') {
             steps {
                 echo '\033[34mClean\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
