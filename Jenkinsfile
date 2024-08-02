@@ -37,8 +37,9 @@ pipeline {
            steps {
                echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                echo 'Testing..'
-              //sh 'npm test'
-              sh 'jest'
+               export PATH=~/.bin/:$PATH
+               sh 'npm test'
+               #sh 'jest'
             }
         }
         stage('Deploy') {
