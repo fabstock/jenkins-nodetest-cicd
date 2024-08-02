@@ -6,9 +6,9 @@ pipeline {
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
           }
-        environment {
-            PATH = "./node_modules/.bin/:${env.PATH}"
-        }
+        //environment {
+        //    PATH = "./node_modules/.bin/:${env.PATH}"
+        //}
     }
 
     options {
