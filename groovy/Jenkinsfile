@@ -1,0 +1,95 @@
+/**
+ * This Jenkinsfile defines the pipeline stages for building,
+ * testing, linting, and deploying the project.
+ */
+//import groovy.transform.CompileStatic
+@CompileStatic
+class Jenkinsfile {
+
+    static void runPipeline() {
+        pipeline {
+            agent {
+                docker {
+                    image 'node:20.16.0-alpine3.20'
+                    args '--user=root -m 512m --cpus=1.5'
+                }
+            }
+
+            options {
+                ansiColor('xterm') {
+                    echo "TERM=${env.TERM}"
+                }
+            }
+
+            stages {
+                stage('Load Stages') {
+                    steps {
+                        script {
+                            cleanStage = load 'CleanStage.groovy'
+                            buildStage = load 'BuildStage.groovy'
+                            groovyLintStage = load 'GroovyLintStage.groovy'
+                            testsStage = load 'TestsStage.groovy'
+                            deployStage = load 'DeployStage.groovy'
+                        }
+                    }
+                }
+
+                stage('Clean') {
+                    steps {
+                        script {
+                            cleanStage()
+                        }
+                    }
+                }
+
+                stage('Build') {
+                    steps {
+                        script {
+                            buildStage()
+                        }
+                    }
+                }
+
+                stage('Groovy-lint Jenkinsfile') {
+                    steps {
+                        script {
+                            groovyLintStage()
+                        }
+                    }
+                }
+
+                stage('Tests') {
+                    steps {
+                        script {
+                            testsStage()
+                        }
+                    }
+                }
+
+                stage('Deploy') {
+                    agent {
+                        label 'agent1_jenkins'
+                    }
+                    steps {
+                        script {
+                            deployStage()
+                        }
+                    }
+                }
+            }
+            post {
+                always {
+                    echo 'Pipeline finished.'
+                }
+                success {
+                    echo 'Pipeline succeeded!'
+                }
+                failure {
+                    echo 'Pipeline failed!'
+                }
+            }
+        }
+    }
+
+}
+
