@@ -10,6 +10,9 @@ pipeline {
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
         }
+        environment {
+            JAVA_HOME=$PWD
+        }
     }
 
     options {
@@ -22,6 +25,7 @@ pipeline {
         /* Let's make sure we have the repository cloned to our workspace */
             steps {
                 checkout scm
+                sh 'env'
             }
         }  
         stage('demo') {
