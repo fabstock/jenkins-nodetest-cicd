@@ -10,11 +10,10 @@ pipeline {
             label 'docker-node-alpine' 
             image 'node:20.16.0-alpine3.20'
             args '--user=root -m 512m --cpus=1.5'
-            environment {
-                JAVA_HOME=$PWD
-            }
         }
-
+        environment {
+            JAVA_HOME=$PWD
+        }
     }
     options {
         ansiColor('xterm')
