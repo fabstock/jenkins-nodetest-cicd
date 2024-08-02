@@ -28,8 +28,10 @@ pipeline {
             steps {
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'node --version'
-                sh 'npm  install jest --loglevel=verbose'
-                sh 'npm  install npm-groovy-lint --loglevel=verbose'
+                //sh 'npm  install jest --loglevel=verbose'
+                sh 'npm  install jest'
+                //sh 'npm  install npm-groovy-lint --loglevel=verbose'
+                sh 'npm  install npm-groovy-lint'
                 sh 'apk add openjdk17-jre'
             }
         }
@@ -55,10 +57,10 @@ pipeline {
                 sh 'export PATH = "~/.bin/:node_modules/.bin/:$PATH"'
                 echo "PATH: $PATH"
                 sh 'ls -ltr ./node_modules/.bin'
-                sh 'npm test'
-                sh 'node /home/fab/LAMANU/TESTs/node_modules/jest/bin/jest.js'
-            //sh '~/.bin/jest  test.sum.js'
-            //sh 'jest'
+                //sh 'npm test'
+                sh 'node ./node_modules/jest/bin/jest.js'
+               //sh '~/.bin/jest  test.sum.js'
+               //sh 'jest'
             }
         }
 
