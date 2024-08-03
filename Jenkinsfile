@@ -6,6 +6,7 @@
 
 pipeline {
     agent {
+        label 'Noeud-vm-lxc-other'
         docker {
             image 'node:20.16.0-alpine3.20'
             //image 'node:20.16.0-slim'
@@ -51,7 +52,6 @@ pipeline {
 
         stage('Clean') {
             steps {
-                agent { label 'Noeud-vm-lxc-other'}
                 echo '\033[34mClean\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'npm cache clean --force'
             }
