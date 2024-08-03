@@ -8,8 +8,8 @@ pipeline {
     agent {
         docker {
             label 'Noeud-vm-lxc-other' 
-            //image 'node:20.16.0-alpine3.20'
-            image 'node:20.16.0-slim'
+            image 'node:20.16.0-alpine3.20'
+            //image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
             args '--user=root  -m 512m --cpus=1.5'
             ///args 'NODE_ENV=node' 
@@ -56,7 +56,6 @@ pipeline {
         }
 
         stage('Build') {
-            label 'Noeud-vm-lxc-other' 
             steps {
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'node --version'
