@@ -20,13 +20,13 @@ pipeline {
         stage('Load Stages') {
             steps {
                 script {
-                    cloneRepoStage = load 'CloneRepoStage.groovy'
-                    demoStage = load 'DemoStage.groovy'
-                    cleanStage = load 'CleanStage.groovy'
-                    buildStage = load 'BuildStage.groovy'
-                    groovyLintStage = load 'GroovyLintStage.groovy'
-                    testsStage = load 'TestsStage.groovy'
-                    deployStage = load 'DeployStage.groovy'
+                    cloneRepoStage = load './groovy3/CloneRepoStage.groovy'
+                    demoStage = load './groovy3/DemoStage.groovy'
+                    cleanStage = load './groovy3/CleanStage.groovy'
+                    buildStage = load './groovy3/BuildStage.groovy'
+                    groovyLintStage = load './groovy3/GroovyLintStage.groovy'
+                    testsStage = load './groovy3/TestsStage.groovy'
+                    deployStage = load './groovy3/DeployStage.groovy'
                 }
             }
         }
