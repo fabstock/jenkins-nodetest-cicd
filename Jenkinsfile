@@ -35,34 +35,6 @@ pipeline {
             }
         }
         
-        stage('Checkout') {
-            agent { label "Agent1-cloud1-Noeud1" }
-            steps {
-                script {
-                 def nodes = nodesByLabel label: 'Agent1-cloud1-Noeud1'
-                 nodes = nodes.sort()
-
-                    Map tasks = [:]
-                    
-                    for (int i = 0; i < nodes.size(); i++) {
-                        def label = nodes[i]
-                        def stageName = "Checkout ${nodes[i]}"
-                        tasks[label] = {
-                            node(label) {
-                                stage(stageName) {
-                                  checkout scm
-                                }
-                            }
-                        }
-                    }
-                    
-                    timeout(time: 3, unit: 'MINUTES') {
-                        parallel(tasks)
-                    }
-                }
-            }
-        }         
-
         stage('demo') {
             steps {
                 // Using xterm
