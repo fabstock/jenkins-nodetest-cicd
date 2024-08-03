@@ -108,7 +108,7 @@ pipeline {
             when { tag pattern: "release-\\d+", comparator: "REGEXP"}
             steps {
                 echo 'Release Staging'
-                echo $branch
+                //echo $branch
                }
         }
         
