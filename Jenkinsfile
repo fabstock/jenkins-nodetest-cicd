@@ -8,10 +8,10 @@
 
 pipeline {
     //agent { dockerfile true }
+    //node { label 'Noeud1' }
     agent {
         docker {
             //label 'Agent1-cloud1-Noeud1'
-            node { label 'Noeud1' }
             image 'node:20.16.0-alpine3.20'
             //image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
