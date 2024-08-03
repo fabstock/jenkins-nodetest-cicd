@@ -1,7 +1,7 @@
 /**
  * This stage demonstrates the use of ANSI color codes.
  */
-@CompileStatic
+//@CompileStatic
 def call() {
     stage('Demo') {
         steps {

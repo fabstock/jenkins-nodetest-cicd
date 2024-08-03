@@ -1,7 +1,7 @@
 /**
  * This stage runs the tests using Jest.
  */
-@CompileStatic
+//@CompileStatic
 def call() {
     stage('Tests') {
         steps {

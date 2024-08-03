@@ -1,7 +1,7 @@
 /**
  * This stage lints the Jenkinsfile using npm-groovy-lint.
  */
-@CompileStatic
+//@CompileStatic
 def call() {
     stage('Groovy-lint Jenkinsfile') {
         steps {

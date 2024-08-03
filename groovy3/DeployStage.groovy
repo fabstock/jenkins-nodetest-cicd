@@ -1,7 +1,7 @@
 /**
  * This stage deploys the application.
  */
-@CompileStatic
+//@CompileStatic
 def call() {
     stage('Deploy') {
         when {

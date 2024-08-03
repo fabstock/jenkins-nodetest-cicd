@@ -1,7 +1,8 @@
 /**
  * This stage clones the repository to the Jenkins workspace.
  */
-@CompileStatic
+//@CompileStatic
+
 def call() {
     stage('Clone repository') {
         steps {

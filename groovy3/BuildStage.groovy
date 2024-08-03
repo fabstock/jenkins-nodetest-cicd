@@ -1,7 +1,7 @@
 /**
  * This stage installs the required npm packages and sets up the environment.
  */
-@CompileStatic
+//@CompileStatic
 def call() {
     stage('Build') {
         steps {

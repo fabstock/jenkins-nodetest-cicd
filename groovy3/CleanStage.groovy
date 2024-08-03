@@ -1,7 +1,7 @@
 /**
  * This stage cleans the npm cache.
  */
-@CompileStatic
+//@CompileStatic
 def call() {
     stage('Clean') {
         steps {
