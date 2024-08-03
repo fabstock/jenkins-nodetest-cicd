@@ -1,6 +1,6 @@
-//import groovy.transform.CompileStatic
+import groovy.transform.CompileStatic
 //@GrailsCompileStatic, @CompileStatic or @CompileDynamic  CompileStatic
-//@CompileStatic
+@CompileStatic
 
 /* Requires the Docker Pipeline plugin */
 
