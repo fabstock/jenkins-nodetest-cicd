@@ -12,8 +12,11 @@ pipeline {
             //args '--user=root -m 512m --cpus=1.5'
             args '--user=root  -m 512m --cpus=1.5'
             ///args 'NODE_ENV=node' 
+            // Run the container on the node specified at the
+            // top-level of the Pipeline, in the same workspace,
+            // rather than on a new node entirely:
+            reuseNode true
         }
-        
     }
     environment {
        JAVA_HOME="/usr"
