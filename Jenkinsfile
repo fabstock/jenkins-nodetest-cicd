@@ -12,8 +12,8 @@ pipeline {
             //image 'node:20.16.0-alpine3.20'
             image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
-            args '--user=root -m 512m --cpus=1.5'
-            args 'ENV "NODE_ENV=node"  ' 
+            args '--user=node -m 512m --cpus=1.5'
+            ///args 'NODE_ENV=node' 
         }
     }
     environment {
