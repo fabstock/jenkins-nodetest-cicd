@@ -56,6 +56,7 @@ pipeline {
         }
 
         stage('Build') {
+            label 'Noeud-vm-lxc-other' 
             steps {
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'node --version'
