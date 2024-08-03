@@ -6,8 +6,8 @@
 
 pipeline {
     agent {
-        label 'Noeud-vm-lxc-other'
         docker {
+            label 'Noeud-vm-lxc-other'
             image 'node:20.16.0-alpine3.20'
             //image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
