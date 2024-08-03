@@ -7,7 +7,6 @@
 pipeline {
     agent {
         docker {
-            label 'Noeud-vm-lxc-other' 
             image 'node:20.16.0-alpine3.20'
             //image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
@@ -24,7 +23,7 @@ pipeline {
     }
 
     stages {
-
+        agent { label 'Noeud-vm-lxc-other'}
         stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
             steps {
