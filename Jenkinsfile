@@ -80,8 +80,7 @@ pipeline {
                 //sh './node_modules/.bin/npm-groovy-lint --verbose 1 --format --parse  Jenkinsfile'
                 //sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
                 sh './node_modules/.bin/npm-groovy-lint --verbose --parse  --format --nolintafter  -s Jenkinsfile'
-
-            }
+                }
         }
 
         stage('Tests') {
@@ -121,17 +120,16 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-        post {
-            always {
-                echo 'Pipeline finished.'
-            }
-            success {
-                echo 'Pipeline succeeded!'
-            }
-            failure {
-                echo 'Pipeline failed!'
-            }
+    }
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
-}
-
+ }
