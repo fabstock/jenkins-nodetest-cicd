@@ -6,7 +6,6 @@
 
 pipeline {
     agent {
-        label {'Noeud-vm-lxc-other'}
         docker {
             image 'node:20.16.0-alpine3.20'
             //image 'node:20.16.0-slim'
@@ -25,7 +24,6 @@ pipeline {
 
     stages {
         stage('Clone repository') {
-            agent { label 'Noeud-vm-lxc-other'}
             /* Let's make sure we have the repository cloned to our workspace */
             steps {
                 checkout scm
@@ -34,7 +32,6 @@ pipeline {
         }  
         stage('demo') {
             steps {
-                agent { label 'Noeud-vm-lxc-other'}
                 // Using xterm 
                 ansiColor('xterm') {
                     echo '\033[31;1m Executing demo stage: \033[0m'
@@ -59,7 +56,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                agent { label 'Noeud-vm-lxc-other'}
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'node --version'
                 //sh 'npm  install jest --loglevel=verbose'
@@ -74,7 +70,6 @@ pipeline {
 
         stage('Groovy-lint Jenkinsfile') {
             steps {
-                agent { label 'Noeud-vm-lxc-other'}
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
                 sh 'export PATH="/bin:./node_modules/.bin:$PATH"'
@@ -90,7 +85,6 @@ pipeline {
 
         stage('Tests') {
             steps {
-                agent { label 'Noeud-vm-lxc-other'}
                 echo '\033[34mTests\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 echo 'Testing..'
                 sh 'export PATH="/bin/:./node_modules/.bin/:$PATH"'
@@ -104,16 +98,12 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent {
-                label 'Noeud-vm-lxc-other' // Nom de l'agent SSH configuré dans Jenkins
-            }
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
                 }
             }
             steps {
-                agent { label 'Noeud-vm-lxc-other'}
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
 
                 /*
