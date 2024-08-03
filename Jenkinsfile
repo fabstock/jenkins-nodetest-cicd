@@ -12,7 +12,7 @@ pipeline {
             //image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
             args '--user=root  -m 512m --cpus=1.5'
-            ///args 'NODE_ENV=node' 
+            ///args 'NODE_ENV=node'
             // Run the container on the node specified at the
             // top-level of the Pipeline, in the same workspace,
             // rather than on a new node entirely:
@@ -20,12 +20,11 @@ pipeline {
         }
     }
     environment {
-       JAVA_HOME="/usr"
+        JAVA_HOME = '/usr'
     }
     options {
         ansiColor('xterm')
     }
-
     stages {
         stage('Clone repository') {
             /* Let's make sure we have the repository cloned to our workspace */
@@ -33,17 +32,17 @@ pipeline {
                 checkout scm
                 sh 'env'
             }
-        }  
+        }
         stage('demo') {
             steps {
-                // Using xterm 
+                // Using xterm
                 ansiColor('xterm') {
-                    echo '\033[31;1m Executing demo stage: \033[0m'
+                    echo '\033[31;1m Executing demo stage: ansicolor xterm \033[0m'
                 }
 
                 // Using vga
                 ansiColor('vga') {
-                    echo '\033[31;1m command-1 \033[0m'
+                    echo '\033[31;1m command-1 ansicolor vga\033[0m'
                 }
 
                 echo '\033[31;1m command-2 \033[0m'
@@ -56,7 +55,6 @@ pipeline {
                 sh 'npm cache clean --force'
             }
         }
-
         stage('Build') {
             steps {
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
@@ -67,10 +65,8 @@ pipeline {
                 sh 'npm  install npm-groovy-lint'
                 sh 'apk add openjdk17-jre curl'
                 sh './install-groovy.sh'
-
             }
         }
-
         stage('Groovy-lint Jenkinsfile') {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
@@ -82,7 +78,9 @@ pipeline {
                 sh 'ls -latr'
                 sh 'ls -latr ./node_modules/.bin'
                 //sh './node_modules/.bin/npm-groovy-lint --verbose 1 --format --parse  Jenkinsfile'
-                sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
+                //sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
+                sh './node_modules/.bin/npm-groovy-lint --verbose --parse  --format --nolintafter  -s Jenkinsfile'
+
             }
         }
 
@@ -95,8 +93,8 @@ pipeline {
                 sh 'ls -ltr ./node_modules/.bin'
                 //sh 'npm test'
                 sh 'node ./node_modules/jest/bin/jest.js'
-               //sh '~/.bin/jest  test.sum.js'
-               //sh 'jest'
+            //sh '~/.bin/jest  test.sum.js'
+            //sh 'jest'
             }
         }
 
@@ -123,17 +121,17 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finished.'
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
+        post {
+            always {
+                echo 'Pipeline finished.'
+            }
+            success {
+                echo 'Pipeline succeeded!'
+            }
+            failure {
+                echo 'Pipeline failed!'
+            }
         }
     }
 }
+
