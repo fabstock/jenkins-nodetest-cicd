@@ -1,6 +1,3 @@
-
-groovy
-Copier le code
 /**
  * This Jenkinsfile defines the pipeline stages for building,
  * testing, linting, and deploying the project.
