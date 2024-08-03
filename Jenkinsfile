@@ -105,7 +105,7 @@ pipeline {
         }
 
         stage('Release') {
-            when { tag pattern: "release-\\d+", comparator: "REGEXP"}
+            //when { tag pattern: "release-\\d+", comparator: "REGEXP"}
             steps {
                 echo 'Release Staging'
                 //echo $branch
@@ -124,7 +124,7 @@ pipeline {
                 /*
                 */
                 sshagent(['ssh-credentials-id']) {
-                    sh 'ssh -o StrictHostKeyChecking=no agent1_jenkins@remote-server "mkdir -p ~/deploy"'
+                    sh 'ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"'
                     sh 'scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy'
                     sh 'ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"'
                 }
