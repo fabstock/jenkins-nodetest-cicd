@@ -23,9 +23,9 @@ pipeline {
     }
 
     stages {
-        agent { label 'Noeud-vm-lxc-other'}
         stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
+            agent { label 'Noeud-vm-lxc-other'}
+            /* Let's make sure we have the repository cloned to our workspace */
             steps {
                 checkout scm
                 sh 'env'
