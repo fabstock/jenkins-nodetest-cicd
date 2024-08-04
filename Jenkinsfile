@@ -115,7 +115,7 @@ pipeline {
                  //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
                      sh 'ssh-agent /bin/bash'
                      sh '''
-                     eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
+                     eval \$(ssh-agent) && ssh-add "${SSH_PRIVATE_KEY}" && ssh-add -l &&
                      ENVIRONMENT=${env.ENVIRONMENT} \
                      PLAYBOOK=${env.PLAYBOOK} \
                      BASTION_USER=${env.BASTION_USER} \
