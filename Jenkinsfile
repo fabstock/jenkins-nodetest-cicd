@@ -109,9 +109,10 @@ pipeline {
             //echo $branch
             }
         }
+        /*
         stage('Deploy1') {
             steps {
-                 withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
+                 //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
                      sh 'ssh-agent /bin/bash'
                      sh '''
                      eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
@@ -125,6 +126,8 @@ pipeline {
                }
             }
         }
+        */
+
         stage('Deploy') {
             when {
                 expression {
@@ -138,7 +141,7 @@ pipeline {
                 */
                 //sshagent(['agent1-ssh)']) {
                 //sshagent(['ssh-credential-id']) {
-                sshagent(['agent1']) {
+                sshagent(credentials: ['agent1']) {
                     sh '''
                        ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
                        scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
