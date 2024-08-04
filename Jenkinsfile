@@ -69,7 +69,7 @@ pipeline {
                 sh 'npm  install jest'
                 //sh 'npm  install npm-groovy-lint --loglevel=verbose'
                 sh 'npm  install npm-groovy-lint'
-                sh 'apk add openjdk17-jre curl openssh-client'
+                sh 'apk add openjdk17-jre curl openssh-client bash'
                 sh './install-groovy.sh'
             }
         }
@@ -111,7 +111,20 @@ pipeline {
                 //echo $branch
                }
         }
-        
+        stage('Deploy1') {
+            withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: "agent1-ssh", keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]){
+              sh "ssh-agent /bin/bash"
+              sh """
+              eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
+              ENVIRONMENT=${env.ENVIRONMENT} \
+              PLAYBOOK=${env.PLAYBOOK} \
+              BASTION_USER=${env.BASTION_USER} \
+              BASTION_HOST=${env.BASTION_HOST} \
+              env
+              """
+              //./deploy-ansible.sh
+              }
+             }
         stage('Deploy') {
             when {
                 expression {
