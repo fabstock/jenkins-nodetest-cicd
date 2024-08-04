@@ -5,7 +5,6 @@
 /* Requires the Docker Pipeline plugin */
 //Jenkinsfile (Declarative Pipeline)
 
-
 pipeline {
     //agent { dockerfile true }
     //node { label 'Noeud1' }
@@ -37,7 +36,7 @@ pipeline {
                 sh 'env'
             }
         }
-        
+
         stage('demo') {
             steps {
                 // Using xterm
@@ -53,14 +52,14 @@ pipeline {
                 echo '\033[31;1m command-2 \033[0m'
             }
         }
-        
+
         stage('Clean') {
             steps {
                 echo '\033[34mClean\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
                 sh 'npm cache clean --force'
             }
         }
-        
+
         stage('Build') {
             steps {
                 echo '\033[34mBuild\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
@@ -73,13 +72,12 @@ pipeline {
                 sh './install-groovy.sh'
             }
         }
-        
+
         stage('Groovy-lint Jenkinsfile') {
             steps {
                 echo '\033[34mLint\033[0m \033[33mJenkinsfile\033[0m \033[35mPipeline\033[0m'
                 echo 'Lint..'
                 sh 'export PATH="/bin:./node_modules/.bin:$PATH"'
-
                 echo "PATH: $PATH"
                 echo "PWD: $PWD"
                 sh 'ls -latr'
@@ -87,7 +85,7 @@ pipeline {
                 //sh './node_modules/.bin/npm-groovy-lint --verbose 1 --format --parse  Jenkinsfile'
                 //sh './node_modules/.bin/npm-groovy-lint --format --parse  Jenkinsfile'
                 sh './node_modules/.bin/npm-groovy-lint --verbose --parse  --format --nolintafter  -s Jenkinsfile'
-                }
+            }
         }
 
         stage('Tests') {
@@ -108,23 +106,25 @@ pipeline {
             //when { tag pattern: "release-\\d+", comparator: "REGEXP"}
             steps {
                 echo 'Release Staging'
-                //echo $branch
-               }
+            //echo $branch
+            }
         }
         stage('Deploy1') {
-            withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: "agent1-ssh", keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]){
-              sh "ssh-agent /bin/bash"
-              sh """
-              eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
-              ENVIRONMENT=${env.ENVIRONMENT} \
-              PLAYBOOK=${env.PLAYBOOK} \
-              BASTION_USER=${env.BASTION_USER} \
-              BASTION_HOST=${env.BASTION_HOST} \
-              env
-              """
-              //./deploy-ansible.sh
-              }
-             }
+            withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1-ssh', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
+                steps {
+                    sh 'ssh-agent /bin/bash'
+                    sh """
+                    eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
+                    ENVIRONMENT=${env.ENVIRONMENT} \
+                    PLAYBOOK=${env.PLAYBOOK} \
+                    BASTION_USER=${env.BASTION_USER} \
+                    BASTION_HOST=${env.BASTION_HOST} \
+                    env
+                    """
+                //./deploy-ansible.sh
+                }
+          }
+        }
         stage('Deploy') {
             when {
                 expression {
@@ -148,9 +148,9 @@ pipeline {
 
                 echo 'Success'
                 echo 'Deploying....'
+                }
+                }
             }
-        }
-    }
     post {
         always {
             echo 'Pipeline finished.'
@@ -162,4 +162,4 @@ pipeline {
             echo 'Pipeline failed!'
         }
     }
- }
+        }
