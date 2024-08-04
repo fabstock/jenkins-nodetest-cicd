@@ -123,10 +123,13 @@ pipeline {
 
                 /*
                 */
-                sshagent(['ssh-credentials-id']) {
-                    sh 'ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"'
-                    sh 'scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy'
-                    sh 'ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"'
+                //sshagent(['ssh-credentials-id']) {
+                sshagent(['agent1_jenkins']) {
+                    sh '''
+                       ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
+                       scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
+                       ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
+                       '''
                 }
 
                 echo 'Success'
