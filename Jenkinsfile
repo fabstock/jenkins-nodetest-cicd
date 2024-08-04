@@ -69,7 +69,7 @@ pipeline {
                 sh 'npm  install jest'
                 //sh 'npm  install npm-groovy-lint --loglevel=verbose'
                 sh 'npm  install npm-groovy-lint'
-                sh 'apk add openjdk17-jre curl'
+                sh 'apk add openjdk17-jre curl openssh-client'
                 sh './install-groovy.sh'
             }
         }
