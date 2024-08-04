@@ -113,14 +113,14 @@ pipeline {
             steps {
                  withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
                      sh 'ssh-agent /bin/bash'
-                     sh """
+                     sh '''
                      eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
                      ENVIRONMENT=${env.ENVIRONMENT} \
                      PLAYBOOK=${env.PLAYBOOK} \
                      BASTION_USER=${env.BASTION_USER} \
                      BASTION_HOST=${env.BASTION_HOST} \
                      env
-                     """
+                     '''
                      //./deploy-ansible.sh
                }
             }
