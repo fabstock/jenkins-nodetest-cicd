@@ -111,7 +111,7 @@ pipeline {
         }
         stage('Deploy1') {
             steps {
-                 withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1-ssh', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
+                 withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
                      sh 'ssh-agent /bin/bash'
                      sh """
                      eval \$(ssh-agent) && ssh-add ${SSH_PRIVATE_KEY} && ssh-add -l &&
