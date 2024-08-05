@@ -111,7 +111,7 @@ pipeline {
         }
         /*
         stage('Deploy1') {
-            agent none
+            //agent none
             steps {
                  //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
  
