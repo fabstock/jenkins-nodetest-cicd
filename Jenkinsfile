@@ -111,8 +111,11 @@ pipeline {
         }
         /*
         stage('Deploy1') {
+            agent none
             steps {
                  //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
+                     sh 'ls -atrlR noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/'
+ 
                      sh 'ssh-agent /bin/bash'
                      sh '''
                      eval \$(ssh-agent) && ssh-add "${SSH_PRIVATE_KEY}" && ssh-add -l &&
