@@ -140,7 +140,7 @@ pipeline {
             }
             steps {
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
-                //sh 'ls -atrlR '
+                sh 'ls -atrlR /home/agent1_jenkins/noeud1/noeud1/workspace/'
 
                 /*
                 */
@@ -151,7 +151,7 @@ pipeline {
                     sh '''
                        eval `ssh-agent -s`
                        trap "ssh-agent -k" EXIT
-                       ssh-add ${PK}
+                       ssh-add "${PK}"
                        ssh -i ec-o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
                        scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
                        ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
