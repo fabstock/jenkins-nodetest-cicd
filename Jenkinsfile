@@ -147,7 +147,7 @@ pipeline {
                 //sshagent(['agent1-ssh)']) {
                 //sshagent(['ssh-credential-id']) {
                 //sshagent(credentials: ['agent1bis']) {
-                withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')])
+                withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')]) {
                     sh '''
                        eval `ssh-agent -s`
                        trap "ssh-agent -k" EXIT
