@@ -150,12 +150,17 @@ pipeline {
                 //sshagent(['agent1-ssh)']) {
                 //sshagent(['ssh-credential-id']) {
                 //sshagent(credentials: ['agent1bis']) {
-                withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')]) {
-                    sh '''
+                //withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')]) {
+                withCredentials([file(credentialsId: 'agent1', variable: 'secretFile')]) {
+                     sh '''
                        echo "$PK"
+                       sh 'cat $secretFile'
+                       sh 'cat $secretFile | base64'
+                       sh 'SSH_PRIVATE_KEY=$(cat $secretFile)'
                        eval `ssh-agent -s`
                        trap "ssh-agent -k" EXIT
-                       ssh-add "$PK" 
+                       #ssh-add "$PK" 
+                       ssh-add "env.${SSH_PRIVATE_KEY]" 
                        ssh -i ec-o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
                        scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
                        ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
