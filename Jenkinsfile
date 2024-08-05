@@ -116,7 +116,7 @@ pipeline {
                  // plugin credentials inclu
                  //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
  
-                     sh 'ls -atrlR noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/'
+                     sh 'ls -atrlR noeud1/noeud1/workspace/node-test-jenkins-cicd*/'
                      sh 'ssh-agent /bin/bash'
                      sh '''
                      eval \$(ssh-agent) && ssh-add "${SSH_PRIVATE_KEY}" && ssh-add -l &&
