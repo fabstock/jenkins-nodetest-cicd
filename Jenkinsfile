@@ -114,8 +114,8 @@ pipeline {
             agent none
             steps {
                  //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
-                     sh 'ls -atrlR noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/'
  
+                     sh 'ls -atrlR noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/'
                      sh 'ssh-agent /bin/bash'
                      sh '''
                      eval \$(ssh-agent) && ssh-add "${SSH_PRIVATE_KEY}" && ssh-add -l &&
@@ -139,6 +139,7 @@ pipeline {
             }
             steps {
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
+                sh 'ls -atrlR noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/'
 
                 /*
                 */
