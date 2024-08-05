@@ -151,7 +151,7 @@ pipeline {
                 //sshagent(['ssh-credential-id']) {
                 //sshagent(credentials: ['agent1bis']) {
                 //withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')]) {
-                withCredentials([file(credentialsId: 'agent1', variable: 'secretFile')]) {
+                withCredentials([file(credentialsId: 'agent1_jenkins', variable: 'secretFile')]) {
                      sh '''
                        echo "$PK"
                        sh 'cat $secretFile'
