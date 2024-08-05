@@ -139,7 +139,7 @@ pipeline {
             }
             steps {
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
-                sh 'ls -atrlR noeud1/noeud1/workspace/node\\ test\\ jenkins\\ cicd@tmp/'
+                sh 'ls -atrlR ~/noeud1/noeud1/workspace/node\\ test\\ jenkins\\ cicd*/'
 
                 /*
                 */
