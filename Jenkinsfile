@@ -114,8 +114,9 @@ pipeline {
             //agent none
             steps {
                  // plugin credentials inclu
-                 withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
- 
+                 //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
+                 withCredentials([file(credentialsId: 'agent1', variable: 'secretFile')]) { 
+                      sh 'cat $secretFile'
                      //sh 'ls -atrlR noeud1/noeud1/workspace/node-test-jenkins-cicd/'
                      sh 'ssh-agent /bin/bash'
                      sh '''
