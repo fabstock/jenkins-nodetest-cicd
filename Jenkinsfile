@@ -113,6 +113,7 @@ pipeline {
         stage('Deploy1') {
             //agent none
             steps {
+                 // plugin credentials inclu
                  //withCredentials([[$class: 'SSHUserPrivateKeyBinding', credentialsId: 'agent1', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: '', usernameVariable: 'SSH_USERNAME']]) {
  
                      sh 'ls -atrlR noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/'
@@ -139,14 +140,18 @@ pipeline {
             }
             steps {
                 echo '\033[34mDeploy\033[0m \033[33mStage\033[0m \033[35mPipeline\033[0m'
-                sh 'ls -atrlR '
+                //sh 'ls -atrlR '
 
                 /*
                 */
                 //sshagent(['agent1-ssh)']) {
                 //sshagent(['ssh-credential-id']) {
-                sshagent(credentials: ['agent1bis']) {
+                //sshagent(credentials: ['agent1bis']) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')])
                     sh '''
+                       eval `ssh-agent -s`
+                       trap "ssh-agent -k" EXIT
+                       ssh-add ${PK}
                        ssh -i ec-o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
                        scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
                        ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
