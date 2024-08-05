@@ -149,14 +149,14 @@ pipeline {
                 */
                 //sshagent(['agent1-ssh)']) {
                 //sshagent(['ssh-credential-id']) {
-                //sshagent(credentials: ['agent1bis']) {
-                //withCredentials([sshUserPrivateKey(credentialsId: 'agent1bis', keyFileVariable: 'PK')]) {
-                withCredentials([file(credentialsId: 'agent1_jenkins', variable: 'secretFile')]) {
+                //sshagent(credentials: ['agent1']) {
+                //withCredentials([file(credentialsId: 'agent1_jenkins', variable: 'secretFile')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'agent1', keyFileVariable: 'PK')]) {
                      sh '''
                        echo "$PK"
-                       sh 'cat $secretFile'
-                       sh 'cat $secretFile | base64'
-                       sh 'SSH_PRIVATE_KEY=$(cat $secretFile)'
+                       sh 'echo $PK >ssh_private'
+                       sh 'cat ssh_private | base64'
+                       sh 'SSH_PRIVATE_KEY=$(cat ssh_private)'
                        eval `ssh-agent -s`
                        trap "ssh-agent -k" EXIT
                        #ssh-add "$PK" 
