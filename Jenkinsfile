@@ -151,7 +151,7 @@ pipeline {
                     sh '''
                        eval `ssh-agent -s`
                        trap "ssh-agent -k" EXIT
-                       ssh-add "/home/agent1_jenkins/noeud1/noeud1/workspace/node\ test\ jenkins\ cicd@tmp/secretFiles" 
+                       ssh-add "/home/agent1_jenkins/noeud1/noeud1/workspace/node\\ test\\ jenkins\\ cicd\\@tmp/secretFiles" 
                        ssh -i ec-o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
                        scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
                        ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
