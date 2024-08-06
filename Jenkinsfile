@@ -175,7 +175,7 @@ pipeline {
     post {
         always {
             echo 'Pipeline finished.'
-            cleanWs deleteDirs: false, notFailBuild: true
+            //cleanWs deleteDirs: false, notFailBuild: true
         }
         success {
             echo 'Pipeline succeeded!'
