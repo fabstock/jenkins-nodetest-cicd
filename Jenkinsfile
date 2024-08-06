@@ -10,7 +10,7 @@ pipeline {
     //node { label 'Noeud1' }
     agent {
         docker {
-            //label 'Agent1-cloud1-Noeud1'
+            label 'Agent1-cloud1-Noeud1'
             image 'node:20.16.0-alpine3.20'
             //image 'node:20.16.0-slim'
             //args '--user=root -m 512m --cpus=1.5'
@@ -175,6 +175,7 @@ pipeline {
     post {
         always {
             echo 'Pipeline finished.'
+            cleanWs deleteDirs: false, notFailBuild: true
         }
         success {
             echo 'Pipeline succeeded!'
