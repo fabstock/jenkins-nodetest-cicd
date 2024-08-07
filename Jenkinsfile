@@ -159,10 +159,10 @@ pipeline {
                        SSH_PRIVATE_KEY=$(cat ssh_private)
                        eval `ssh-agent -s`
                        trap "ssh-agent -k" EXIT
-                       #ssh-add ${SSH_PRIVATE_KEY}
-                       #/ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
-                       #scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
-                       #ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
+                       ssh-add ${SSH_PRIVATE_KEY}
+                       ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "mkdir -p ~/deploy"
+                       scp -o StrictHostKeyChecking=no  Jenkinsfile agent1_jenkins@192.168.3.84:~/deploy
+                       ssh -o StrictHostKeyChecking=no agent1_jenkins@192.168.3.84 "echo  1 >file"
                        
                     '''
                 }
